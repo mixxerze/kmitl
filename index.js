@@ -1,15 +1,16 @@
-const express = require('express');
-const morgan = require('morgan');
+var express = require('express');
+var path = require('path');
+var app = express();
 
-const app = express();
-app.use(morgan('combined'));
-
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
+app.get('/' , function(req,res){
+  res.json('404 Not Found');
 });
 
-var listener = app.listen(process.env.PORT || 80, function() {
- console.log('listening on port ' + listener.address().port);
+app.get('/index' , function(req,res){
+  res.sendfile(path.join(__dirname , '/index.html'));
 });
-
+var server = app.listen(3000 , function(){
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log("Running at http://localhost:%s" , port);
+});
